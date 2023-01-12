@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry{
 
-    private Map<String, Object> singletonObjects = new HashMap<>();
+    private final Map<String, Object> singletonObjects = new HashMap<>();
 
     @Override
     public Object getSingleton(String beanName) {

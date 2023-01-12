@@ -6,7 +6,7 @@ import com.lovegu.springframework.factory.config.DefaultSingletonBeanRegistry;
 
 /**
  * @author 老顾
- * @description 使用模板模式是定义的抽象 bean 工厂 来获取 bean 对象
+ * @description 使用模板模式使定义的抽象 bean 工厂 来获取 bean 对象
  * @date 2023/1/12
  */
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
