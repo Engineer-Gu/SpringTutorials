@@ -1,4 +1,6 @@
-package com.lovegu.springframework.factory.config;
+package com.lovegu.springframework.factory.support;
+
+import com.lovegu.springframework.factory.config.SingletonBeanRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +10,7 @@ import java.util.Map;
  * @description 实现单例对象的方法，获取单例对象和注册单例对象
  * @date 2023/1/12
  */
-public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry{
+public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 
     private final Map<String, Object> singletonObjects = new HashMap<>();
 
@@ -17,8 +19,7 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry{
         return singletonObjects.get(beanName);
     }
 
-    @Override
-    public void registerSingleton(String beanName, Object singletonObject) {
+    protected void addSingleton(String beanName, Object singletonObject) {
         singletonObjects.put(beanName, singletonObject);
     }
 }

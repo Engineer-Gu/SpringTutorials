@@ -24,8 +24,7 @@ public class CglibSubclassingInstantiation implements InstantiationStrategy{
                 return super.hashCode();
             }
         });
-        // 如果构造函数为空，直接创建对象
-        if (ctor == null) return enhancer.create();
-        return enhancer.create(ctor.getExceptionTypes(), args);
+        if (null == ctor) return enhancer.create();
+        return enhancer.create(ctor.getParameterTypes(), args);
     }
 }

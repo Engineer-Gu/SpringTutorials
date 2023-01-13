@@ -11,8 +11,7 @@ import java.util.Map;
  * @description 核心类实现，注册 bean 对象和获取 bean 对象
  * @date 2023/1/12
  */
-public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory
-implements BeanDefinitionRegistry{
+public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory implements BeanDefinitionRegistry{
 
     private final Map<String, BeanDefinition> beanDefinitionMap = new HashMap<>();
 
