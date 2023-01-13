@@ -7,7 +7,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * @author 老顾
- * @description JDK实例化
+ * @description 基于 JDK 实例化对象
  * @date 2023/1/13
  */
 public class SimpleInstantiationStrategy implements InstantiationStrategy{
