@@ -1,7 +1,11 @@
 package com.lovegu.springframework.factory.support;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.lovegu.springframework.BeansException;
+import com.lovegu.springframework.PropertyValue;
+import com.lovegu.springframework.PropertyValues;
 import com.lovegu.springframework.factory.config.BeanDefinition;
+import com.lovegu.springframework.factory.config.BeanReference;
 
 import java.lang.reflect.Constructor;
 
@@ -19,6 +23,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         Object bean = null;
         try {
             bean = createBeanInstance(beanDefinition, beanName, args);
+            // 给 bean 对象填充属性
+            applyPropertyValues(beanName, bean, beanDefinition);
         } catch (Exception e) {
             throw new BeansException("Instantiation of bean failed", e);
         }
@@ -38,6 +44,34 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             }
         }
         return getInstantiationStrategy().instantiate(beanDefinition, beanName, constructorToUse, args);
+    }
+
+    /**
+     * bean 对象属性填充
+     * @param beanName
+     * @param bean
+     * @param beanDefinition
+     */
+    private void applyPropertyValues(String beanName, Object bean, BeanDefinition beanDefinition) {
+        try {
+            PropertyValues propertyValues = beanDefinition.getPropertyValues();
+            // 循环进行属性填充
+            for (PropertyValue propertyValue : propertyValues.getPropertyValues()) {
+                String name = propertyValue.getName();
+                Object value = propertyValue.getValue();
+
+                if (value instanceof BeanReference) {
+                    // 如果 A 依赖于 B，就获取 B 的实例化对象
+                    BeanReference beanReference = (BeanReference) value;
+                    value = getBean(beanReference.getBeanName());
+                }
+
+                // 属性填充
+                BeanUtil.setFieldValue(bean, name, value);
+            }
+        }catch (Exception e) {
+            throw new BeansException("错误设置属性值", e);
+        }
     }
 
     public InstantiationStrategy getInstantiationStrategy() {
