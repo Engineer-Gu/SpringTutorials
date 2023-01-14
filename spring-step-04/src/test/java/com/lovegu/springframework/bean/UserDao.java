@@ -22,4 +22,12 @@ public class UserDao {
     public String queryUserName(String uId) {
         return hashMap.get(uId);
     }
+
+    public static Map<String, String> getHashMap() {
+        return hashMap;
+    }
+
+    public static void setHashMap(Map<String, String> hashMap) {
+        UserDao.hashMap = hashMap;
+    }
 }

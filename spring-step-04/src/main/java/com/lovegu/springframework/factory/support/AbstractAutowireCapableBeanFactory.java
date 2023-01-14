@@ -23,7 +23,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         Object bean = null;
         try {
             bean = createBeanInstance(beanDefinition, beanName, args);
-            // 给 bean 对象填充属性
+            // 给 Bean 填充属性
             applyPropertyValues(beanName, bean, beanDefinition);
         } catch (Exception e) {
             throw new BeansException("Instantiation of bean failed", e);
@@ -70,7 +70,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
                 BeanUtil.setFieldValue(bean, name, value);
             }
         }catch (Exception e) {
-            throw new BeansException("错误设置属性值", e);
+            throw new BeansException("错误设置属性值：" + beanName);
         }
     }
 

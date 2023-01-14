@@ -13,12 +13,7 @@ public class UserService {
 
 
     public void queryUserInfo() {
-        System.out.println("查询用户信息：" + uId);
-    }
-
-    public UserService(String uId, UserDao userDao) {
-        this.uId = uId;
-        this.userDao = userDao;
+        System.out.println("查询用户信息：" + userDao.queryUserName(uId));
     }
 
     public String getuId() {
