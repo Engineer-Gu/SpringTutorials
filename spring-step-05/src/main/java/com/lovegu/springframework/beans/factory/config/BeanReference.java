@@ -1,4 +1,4 @@
-package com.lovegu.springframework.factory.config;
+package com.lovegu.springframework.beans.factory.config;
 
 /**
  * @author 老顾

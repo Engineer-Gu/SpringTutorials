@@ -1,6 +1,6 @@
-package com.lovegu.springframework.factory.support;
+package com.lovegu.springframework.beans.factory.support;
 
-import com.lovegu.springframework.factory.config.SingletonBeanRegistry;
+import com.lovegu.springframework.beans.factory.config.SingletonBeanRegistry;
 
 import java.util.HashMap;
 import java.util.Map;

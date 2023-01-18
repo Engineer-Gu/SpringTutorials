@@ -1,8 +1,8 @@
-package com.lovegu.springframework.factory.support;
+package com.lovegu.springframework.beans.factory.support;
 
-import com.lovegu.springframework.BeansException;
-import com.lovegu.springframework.factory.BeanFactory;
-import com.lovegu.springframework.factory.config.BeanDefinition;
+import com.lovegu.springframework.beans.BeansException;
+import com.lovegu.springframework.beans.factory.BeanFactory;
+import com.lovegu.springframework.beans.factory.config.BeanDefinition;
 
 /**
  * @author 老顾

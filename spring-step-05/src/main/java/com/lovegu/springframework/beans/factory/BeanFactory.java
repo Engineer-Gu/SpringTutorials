@@ -1,6 +1,6 @@
-package com.lovegu.springframework.factory;
+package com.lovegu.springframework.beans.factory;
 
-import com.lovegu.springframework.BeansException;
+import com.lovegu.springframework.beans.BeansException;
 
 /**
  * @author 老顾

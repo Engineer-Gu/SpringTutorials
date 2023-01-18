@@ -1,11 +1,11 @@
-package com.lovegu.springframework.factory.support;
+package com.lovegu.springframework.beans.factory.support;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.lovegu.springframework.BeansException;
-import com.lovegu.springframework.PropertyValue;
-import com.lovegu.springframework.PropertyValues;
-import com.lovegu.springframework.factory.config.BeanDefinition;
-import com.lovegu.springframework.factory.config.BeanReference;
+import com.lovegu.springframework.beans.BeansException;
+import com.lovegu.springframework.beans.PropertyValue;
+import com.lovegu.springframework.beans.PropertyValues;
+import com.lovegu.springframework.beans.factory.config.BeanDefinition;
+import com.lovegu.springframework.beans.factory.config.BeanReference;
 
 import java.lang.reflect.Constructor;
 

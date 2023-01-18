@@ -1,4 +1,4 @@
-package com.lovegu.springframework;
+package com.lovegu.springframework.beans;
 
 /**
  * @author 老顾

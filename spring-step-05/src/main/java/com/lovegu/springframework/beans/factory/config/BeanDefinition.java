@@ -1,6 +1,6 @@
-package com.lovegu.springframework.factory.config;
+package com.lovegu.springframework.beans.factory.config;
 
-import com.lovegu.springframework.PropertyValues;
+import com.lovegu.springframework.beans.PropertyValues;
 
 /**
  * @author 老顾
