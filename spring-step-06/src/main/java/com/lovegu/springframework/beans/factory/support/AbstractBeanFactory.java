@@ -3,6 +3,10 @@ package com.lovegu.springframework.beans.factory.support;
 import com.lovegu.springframework.beans.BeansException;
 import com.lovegu.springframework.beans.factory.BeanFactory;
 import com.lovegu.springframework.beans.factory.config.BeanDefinition;
+import com.lovegu.springframework.beans.factory.config.BeanPostProcessor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 老顾
@@ -10,6 +14,8 @@ import com.lovegu.springframework.beans.factory.config.BeanDefinition;
  * @date 2023/1/12
  */
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
+
+    private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
 
     @Override
     public Object getBean(String name) throws BeansException {
@@ -35,4 +41,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
     protected abstract Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args) throws BeansException;
 
+    public List<BeanPostProcessor> getBeanPostProcessors() {
+        return this.beanPostProcessors;
+    }
 }

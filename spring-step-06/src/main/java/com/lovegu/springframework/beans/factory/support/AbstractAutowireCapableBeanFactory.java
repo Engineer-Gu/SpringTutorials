@@ -4,7 +4,9 @@ import cn.hutool.core.bean.BeanUtil;
 import com.lovegu.springframework.beans.BeansException;
 import com.lovegu.springframework.beans.PropertyValue;
 import com.lovegu.springframework.beans.PropertyValues;
+import com.lovegu.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import com.lovegu.springframework.beans.factory.config.BeanDefinition;
+import com.lovegu.springframework.beans.factory.config.BeanPostProcessor;
 import com.lovegu.springframework.beans.factory.config.BeanReference;
 
 import java.lang.reflect.Constructor;
@@ -14,7 +16,7 @@ import java.lang.reflect.Constructor;
  * @description 创建 bean 对象
  * @date 2023/1/12
  */
-public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory{
+public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory implements AutowireCapableBeanFactory {
 
     private InstantiationStrategy instantiationStrategy = new CglibSubclassingInstantiation();
 
@@ -81,4 +83,38 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     public void setInstantiationStrategy(InstantiationStrategy instantiationStrategy) {
         this.instantiationStrategy = instantiationStrategy;
     }
+
+    private Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) {
+        // 1.执行 BeanPostProcessor Before 前置处理
+        Object wrappedBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
+
+        //待完成内容
+        invokeInitMethods(beanName, wrappedBean, beanDefinition);
+
+        // 2.执行 BeanPostProcessor After 后置处理
+        wrappedBean = applyBeanPostProcessorsAfterInitialization(bean, beanName);
+        return wrappedBean;
+    }
+
+    private void invokeInitMethods(String beanName, Object wrappedBean, BeanDefinition beanDefinition) {
+    }
+    public Object applyBeanPostProcessorsBeforeInitialization(Object existingBean, String beanName) {
+        Object result = existingBean;
+        for (BeanPostProcessor processor : getBeanPostProcessors()){
+            Object current = processor.postProcessBeforeInitialization(result, beanName);
+            if (null == current) return result;
+            result = current;
+        }
+        return result;
+    }
+    public Object applyBeanPostProcessorsAfterInitialization(Object existingBean, String beanName) {
+        Object result = existingBean;
+        for (BeanPostProcessor processor : getBeanPostProcessors()){
+            Object current = processor.postProcessAfterInitialization(result, beanName);
+            if (null == current) return result;
+            result = current;
+        }
+        return result;
+    }
+
 }
