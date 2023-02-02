@@ -7,7 +7,7 @@ import com.lovegu.springframework.beans.BeansException;
  * @description 应用上下文实现类-具体对外给用户提供的应用上下文类
  * @date 2023/2/2
  */
-public abstract class ClassPathXmlApplicationContext extends AbstractXmlApplicationContext {
+public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContext {
 
     private String[] configLocations;
 

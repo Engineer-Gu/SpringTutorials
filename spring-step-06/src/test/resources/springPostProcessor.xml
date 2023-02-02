@@ -5,9 +5,12 @@
 
     <bean id="userService" class="com.lovegu.springframework.bean.UserService">
         <property name="uId" value="10001"/>
-        <property name="userDao" ref="userDao"/>
         <property name="company" value="腾讯"/>
         <property name="location" value="深圳"/>
+        <property name="userDao" ref="userDao"/>
     </bean>
+
+    <bean class="com.lovegu.springframework.common.MyBeanPostProcessor"/>
+    <bean class="com.lovegu.springframework.common.MyBeanFactoryPostProcessor"/>
 
 </beans>
