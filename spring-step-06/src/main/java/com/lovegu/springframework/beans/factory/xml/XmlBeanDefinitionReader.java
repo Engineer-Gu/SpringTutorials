@@ -28,7 +28,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         super(registry);
     }
 
-    protected XmlBeanDefinitionReader(BeanDefinitionRegistry registry, ResourceLoader resourceLoader) {
+    public XmlBeanDefinitionReader(BeanDefinitionRegistry registry, ResourceLoader resourceLoader) {
         super(registry, resourceLoader);
     }
 

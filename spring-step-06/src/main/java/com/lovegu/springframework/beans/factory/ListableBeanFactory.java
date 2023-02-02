@@ -9,7 +9,7 @@ import java.util.Map;
  * @description 自动装配工厂接口
  * @date 2023/2/2
  */
-public interface ListableBeanFactory {
+public interface ListableBeanFactory extends BeanFactory{
 
     /**
      * 按照类型返回 Bean 实例
