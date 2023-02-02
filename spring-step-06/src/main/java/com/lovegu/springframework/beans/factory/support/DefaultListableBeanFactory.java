@@ -3,8 +3,6 @@ package com.lovegu.springframework.beans.factory.support;
 import com.lovegu.springframework.beans.BeansException;
 import com.lovegu.springframework.beans.factory.ConfigurableListableBeanFactory;
 import com.lovegu.springframework.beans.factory.config.BeanDefinition;
-import com.lovegu.springframework.beans.factory.config.BeanPostProcessor;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -56,20 +54,5 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
     @Override
     public void preInstantiateSingletons() throws BeansException {
         beanDefinitionMap.keySet().forEach(this::getBean);
-    }
-
-    @Override
-    public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
-
-    }
-
-    @Override
-    public Object applyBeanPostProcessorsBeforeInitialization(Object existingBean, String beanName) throws BeansException {
-        return null;
-    }
-
-    @Override
-    public Object applyBeanPostProcessorsAfterInitialization(Object existingBean, String beanName) throws BeansException {
-        return null;
     }
 }

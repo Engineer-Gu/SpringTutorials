@@ -4,6 +4,7 @@ import com.lovegu.springframework.beans.BeansException;
 import com.lovegu.springframework.beans.factory.BeanFactory;
 import com.lovegu.springframework.beans.factory.config.BeanDefinition;
 import com.lovegu.springframework.beans.factory.config.BeanPostProcessor;
+import com.lovegu.springframework.beans.factory.config.ConfigurableBeanFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +14,17 @@ import java.util.List;
  * @description 使用模板模式使定义的抽象 bean 工厂 来获取 bean 对象
  * @date 2023/1/12
  */
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
+public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
 
     private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
-
     @Override
     public Object getBean(String name) throws BeansException {
         return doGetBean(name, null);
+    }
+
+    @Override
+    public Object getBean(String name, Object... args) throws BeansException {
+        return doGetBean(name, args);
     }
 
     @Override
@@ -43,5 +48,11 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
     public List<BeanPostProcessor> getBeanPostProcessors() {
         return this.beanPostProcessors;
+    }
+
+    @Override
+    public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor){
+        this.beanPostProcessors.remove(beanPostProcessor);
+        this.beanPostProcessors.add(beanPostProcessor);
     }
 }
