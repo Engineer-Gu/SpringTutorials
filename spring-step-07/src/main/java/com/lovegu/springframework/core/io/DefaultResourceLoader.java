@@ -1,4 +1,4 @@
-package com.lovegu.springframework.io;
+package com.lovegu.springframework.core.io;
 
 import cn.hutool.core.lang.Assert;
 
