@@ -1,15 +1,13 @@
 package com.lovegu.springframework.beans;
 
 /**
- * @author 老顾
- * @description 属性值类
- * @date 2023/1/14
+ * bean 属性信息
  */
 public class PropertyValue {
 
-    private String name;
+    private final String name;
 
-    private Object value;
+    private final Object value;
 
     public PropertyValue(String name, Object value) {
         this.name = name;
@@ -20,15 +18,8 @@ public class PropertyValue {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Object getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
-        this.value = value;
-    }
 }

@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author 老顾
- * @description 属性集合类
- * @date 2023/1/14
+ * 属性集合类
  */
 public class PropertyValues {
 
@@ -28,4 +26,5 @@ public class PropertyValues {
         }
         return null;
     }
+
 }

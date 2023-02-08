@@ -1,4 +1,4 @@
-package com.lovegu.springframework.utils;
+package com.lovegu.springframework.util;
 
 /**
  * 工具类-获取默认类加载器

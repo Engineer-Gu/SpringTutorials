@@ -1,11 +1,10 @@
 package com.lovegu.springframework.context.support;
 
+
 import com.lovegu.springframework.beans.BeansException;
 
 /**
- * @author 老顾
- * @description 应用上下文实现类-具体对外给用户提供的应用上下文类
- * @date 2023/2/2
+ * XML 文件应用上下文
  */
 public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContext {
 
@@ -26,7 +25,6 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
 
     /**
      * 从 XML 中加载 BeanDefinition，并刷新上下文
-     *
      * @param configLocations
      * @throws BeansException
      */

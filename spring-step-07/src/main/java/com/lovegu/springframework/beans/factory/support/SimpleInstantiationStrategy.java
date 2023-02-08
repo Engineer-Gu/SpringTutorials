@@ -4,26 +4,25 @@ import com.lovegu.springframework.beans.BeansException;
 import com.lovegu.springframework.beans.factory.config.BeanDefinition;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
- * @author 老顾
- * @description 基于 JDK 实例化对象
- * @date 2023/1/13
+ * 基于 JDK 实例化对象
  */
-public class SimpleInstantiationStrategy implements InstantiationStrategy{
+public class SimpleInstantiationStrategy implements InstantiationStrategy {
 
     @Override
     public Object instantiate(BeanDefinition beanDefinition, String beanName, Constructor ctor, Object[] args) throws BeansException {
-        // 通过 beanDefinition 获取 Class 信息
         Class clazz = beanDefinition.getBeanClass();
         try {
-            if (ctor != null) {
+            if (null != ctor) {
                 return clazz.getDeclaredConstructor(ctor.getParameterTypes()).newInstance(args);
-            }else {
+            } else {
                 return clazz.getDeclaredConstructor().newInstance();
             }
-        }catch (Exception e){
-            throw new BeansException("实例化错误 [" + clazz.getName() + "]", e);
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            throw new BeansException("Failed to instantiate [" + clazz.getName() + "]", e);
         }
     }
+
 }

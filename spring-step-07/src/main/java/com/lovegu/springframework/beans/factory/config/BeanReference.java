@@ -1,13 +1,11 @@
 package com.lovegu.springframework.beans.factory.config;
 
 /**
- * @author 老顾
- * @description 类引用类
- * @date 2023/1/14
+ * Bean 的引用
  */
 public class BeanReference {
 
-    private String beanName;
+    private final String beanName;
 
     public BeanReference(String beanName) {
         this.beanName = beanName;
@@ -17,7 +15,4 @@ public class BeanReference {
         return beanName;
     }
 
-    public void setBeanName(String beanName) {
-        this.beanName = beanName;
-    }
 }

@@ -1,25 +1,23 @@
 package com.lovegu.springframework.core.io;
 
 import cn.hutool.core.lang.Assert;
-import com.lovegu.springframework.utils.ClassUtils;
+import com.lovegu.springframework.util.ClassUtils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author 老顾
- * @description 流文件的实现一：通过ClasLoader读取类的ClassPath文件信息
- * @date 2023/1/18
+ * 流文件的实现一：通过ClasLoader读取类的ClassPath文件信息
  */
-public class ClassPathResource implements Resource{
+public class ClassPathResource implements Resource {
 
     private final String path;
 
-    private final ClassLoader classLoader;
+    private ClassLoader classLoader;
 
     public ClassPathResource(String path) {
-        this(path, null);
+        this(path, (ClassLoader) null);
     }
 
     public ClassPathResource(String path, ClassLoader classLoader) {
@@ -33,7 +31,7 @@ public class ClassPathResource implements Resource{
         InputStream is = classLoader.getResourceAsStream(path);
         if (is == null) {
             throw new FileNotFoundException(
-                    this.path + "cannot be opened because it does not exist");
+                    this.path + " cannot be opened because it does not exist");
         }
         return is;
     }

@@ -1,16 +1,14 @@
 package com.lovegu.springframework.core.io;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 
 /**
- * @author 老顾
- * @description 流文件的实现二：通过指定文件路径的方式读取文件信息
- * @date 2023/1/18
+ * 流文件的实现二：通过指定文件路径的方式读取文件信息
  */
-public class FileSystemResource implements Resource{
+public class FileSystemResource implements Resource {
 
     private final File file;
 
@@ -28,10 +26,11 @@ public class FileSystemResource implements Resource{
 
     @Override
     public InputStream getInputStream() throws IOException {
-        return Files.newInputStream(this.file.toPath());
+        return new FileInputStream(this.file);
     }
 
     public final String getPath() {
         return this.path;
     }
+
 }

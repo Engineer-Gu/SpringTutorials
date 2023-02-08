@@ -1,4 +1,4 @@
-package com.lovegu.springframework.core.io;
+package com.lovegu.springframework.io;
 
 import java.io.File;
 import java.io.IOException;

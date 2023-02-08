@@ -9,8 +9,8 @@ import com.lovegu.springframework.beans.factory.config.BeanDefinition;
 import com.lovegu.springframework.beans.factory.config.BeanReference;
 import com.lovegu.springframework.beans.factory.support.DefaultListableBeanFactory;
 import com.lovegu.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import com.lovegu.springframework.core.io.DefaultResourceLoader;
-import com.lovegu.springframework.core.io.Resource;
+import com.lovegu.springframework.io.DefaultResourceLoader;
+import com.lovegu.springframework.io.Resource;
 import org.junit.Before;
 import org.junit.Test;
 

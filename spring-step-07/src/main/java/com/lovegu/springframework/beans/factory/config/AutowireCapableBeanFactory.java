@@ -1,12 +1,11 @@
 package com.lovegu.springframework.beans.factory.config;
 
+
 import com.lovegu.springframework.beans.BeansException;
 import com.lovegu.springframework.beans.factory.BeanFactory;
 
 /**
- * @author 老顾
- * @description Bean 工厂的扩展接口
- * @date 2023/2/2
+ * Bean 工厂的扩展接口
  */
 public interface AutowireCapableBeanFactory extends BeanFactory {
 

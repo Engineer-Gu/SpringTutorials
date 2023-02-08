@@ -6,9 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * @author 老顾
- * @description 默认资源加载器
- * @date 2023/1/18
+ * 默认资源加载器
  */
 public class DefaultResourceLoader implements ResourceLoader {
 
@@ -17,7 +15,8 @@ public class DefaultResourceLoader implements ResourceLoader {
         Assert.notNull(location, "Location must not be null");
         if (location.startsWith(CLASSPATH_URL_PREFIX)) {
             return new ClassPathResource(location.substring(CLASSPATH_URL_PREFIX.length()));
-        } else {
+        }
+        else {
             try {
                 URL url = new URL(location);
                 return new UrlResource(url);
@@ -26,4 +25,5 @@ public class DefaultResourceLoader implements ResourceLoader {
             }
         }
     }
+
 }

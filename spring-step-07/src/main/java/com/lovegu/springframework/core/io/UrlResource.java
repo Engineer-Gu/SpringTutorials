@@ -9,11 +9,9 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * @author 老顾
- * @description 流文件的实现三：通过URL路径的形式读取远程云文件
- * @date 2023/1/18
+ * 流文件的实现三：通过URL路径的形式读取远程云文件
  */
-public class UrlResource implements Resource {
+public class UrlResource implements Resource{
 
     private final URL url;
 
@@ -27,11 +25,13 @@ public class UrlResource implements Resource {
         URLConnection con = this.url.openConnection();
         try {
             return con.getInputStream();
-        }catch (IOException ex) {
-            if (con instanceof HttpURLConnection) {
+        }
+        catch (IOException ex){
+            if (con instanceof HttpURLConnection){
                 ((HttpURLConnection) con).disconnect();
             }
             throw ex;
         }
     }
+
 }

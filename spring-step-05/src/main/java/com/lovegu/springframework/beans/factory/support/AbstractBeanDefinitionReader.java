@@ -1,7 +1,7 @@
 package com.lovegu.springframework.beans.factory.support;
 
-import com.lovegu.springframework.core.io.DefaultResourceLoader;
-import com.lovegu.springframework.core.io.ResourceLoader;
+import com.lovegu.springframework.io.DefaultResourceLoader;
+import com.lovegu.springframework.io.ResourceLoader;
 
 /**
  * @author 老顾

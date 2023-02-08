@@ -1,13 +1,12 @@
 package com.lovegu.springframework.context;
 
+
 import com.lovegu.springframework.beans.BeansException;
 
 /**
- * @author 老顾
- * @description 应用上下文配置接口
- * @date 2023/2/2
+ * 应用上下文配置接口
  */
-public interface ConfigurableApplicationContext extends ApplicationContext{
+public interface ConfigurableApplicationContext extends ApplicationContext {
 
     /**
      * 刷新容器
@@ -16,13 +15,8 @@ public interface ConfigurableApplicationContext extends ApplicationContext{
      */
     void refresh() throws BeansException;
 
-    /**
-     * 注册虚拟钩子
-     */
-    void registerShutDownHook();
+    void registerShutdownHook();
 
-    /**
-     * 关闭虚拟钩子
-     */
     void close();
+
 }

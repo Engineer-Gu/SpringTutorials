@@ -1,15 +1,13 @@
 package com.lovegu.springframework.context.support;
 
-import com.lovegu.springframework.beans.BeansException;
 import com.lovegu.springframework.beans.factory.ConfigurableListableBeanFactory;
+import com.lovegu.springframework.beans.BeansException;
 import com.lovegu.springframework.beans.factory.support.DefaultListableBeanFactory;
 
 /**
- * @author 老顾
- * @description 获取 Bean 工厂和加载资源
- * @date 2023/2/2
+ * 获取 Bean 工厂和加载资源
  */
-public abstract class AbstractRefreshableApplicationContext extends AbstractApplicationContext{
+public abstract class AbstractRefreshableApplicationContext extends AbstractApplicationContext {
 
     private DefaultListableBeanFactory beanFactory;
 
@@ -30,4 +28,5 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
     protected ConfigurableListableBeanFactory getBeanFactory() {
         return beanFactory;
     }
+
 }

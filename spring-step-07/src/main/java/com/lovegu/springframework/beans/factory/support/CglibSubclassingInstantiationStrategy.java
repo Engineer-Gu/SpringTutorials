@@ -8,11 +8,9 @@ import net.sf.cglib.proxy.NoOp;
 import java.lang.reflect.Constructor;
 
 /**
- * @author 老顾
- * @description 基于 Cglib 实例化对象
- * @date 2023/1/13
+ * 基于 Cglib 实例化对象
  */
-public class CglibSubclassingInstantiation implements InstantiationStrategy{
+public class CglibSubclassingInstantiationStrategy implements InstantiationStrategy {
 
     @Override
     public Object instantiate(BeanDefinition beanDefinition, String beanName, Constructor ctor, Object[] args) throws BeansException {
@@ -27,4 +25,5 @@ public class CglibSubclassingInstantiation implements InstantiationStrategy{
         if (null == ctor) return enhancer.create();
         return enhancer.create(ctor.getParameterTypes(), args);
     }
+
 }

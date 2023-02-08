@@ -1,24 +1,12 @@
 package com.lovegu.springframework;
 
-import cn.hutool.core.io.IoUtil;
-import com.lovegu.springframework.bean.UserDao;
 import com.lovegu.springframework.bean.UserService;
-import com.lovegu.springframework.beans.PropertyValue;
-import com.lovegu.springframework.beans.PropertyValues;
-import com.lovegu.springframework.beans.factory.config.BeanDefinition;
-import com.lovegu.springframework.beans.factory.config.BeanReference;
 import com.lovegu.springframework.beans.factory.support.DefaultListableBeanFactory;
 import com.lovegu.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import com.lovegu.springframework.common.MyBeanFactoryPostProcessor;
 import com.lovegu.springframework.common.MyBeanPostProcessor;
 import com.lovegu.springframework.context.support.ClassPathXmlApplicationContext;
-import com.lovegu.springframework.core.io.DefaultResourceLoader;
-import com.lovegu.springframework.core.io.Resource;
-import org.junit.Before;
 import org.junit.Test;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * @author 老顾

@@ -8,9 +8,8 @@ import com.lovegu.springframework.beans.factory.config.BeanDefinition;
 import java.lang.reflect.Method;
 
 /**
- * @author 老顾
- * @description 销毁 Bean 对象具体实现类
- * @date 2023/2/8
+ * Adapter that implements the {@link DisposableBean} and {@link Runnable} interfaces
+ * performing various destruction steps on a given bean instance:
  */
 public class DisposableBeanAdapter implements DisposableBean {
 
@@ -34,8 +33,12 @@ public class DisposableBeanAdapter implements DisposableBean {
         // 2. 注解配置 destroy-method {判断是为了避免二次执行销毁}
         if (StrUtil.isNotEmpty(destroyMethodName) && !(bean instanceof DisposableBean && "destroy".equals(this.destroyMethodName))) {
             Method destroyMethod = bean.getClass().getMethod(destroyMethodName);
+            if (null == destroyMethod) {
+                throw new BeansException("Couldn't find a destroy method named '" + destroyMethodName + "' on bean with name '" + beanName + "'");
+            }
             destroyMethod.invoke(bean);
         }
-
+        
     }
+
 }

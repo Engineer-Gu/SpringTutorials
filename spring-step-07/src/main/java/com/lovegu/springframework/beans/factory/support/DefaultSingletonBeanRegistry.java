@@ -1,17 +1,15 @@
 package com.lovegu.springframework.beans.factory.support;
 
 import com.lovegu.springframework.beans.BeansException;
-import com.lovegu.springframework.beans.factory.DisposableBean;
 import com.lovegu.springframework.beans.factory.config.SingletonBeanRegistry;
+import com.lovegu.springframework.beans.factory.DisposableBean;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * @author 老顾
- * @description 实现单例对象的方法，获取单例对象和注册单例对象
- * @date 2023/1/12
+ * 实现单例对象的方法，获取单例对象和注册单例对象
  */
 public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 
@@ -35,7 +33,7 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
     public void destroySingletons() {
         Set<String> keySet = this.disposableBeans.keySet();
         Object[] disposableBeanNames = keySet.toArray();
-
+        
         for (int i = disposableBeanNames.length - 1; i >= 0; i--) {
             Object beanName = disposableBeanNames[i];
             DisposableBean disposableBean = disposableBeans.remove(beanName);

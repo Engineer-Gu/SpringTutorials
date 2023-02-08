@@ -1,20 +1,17 @@
 package com.lovegu.springframework.beans.factory.support;
 
-import com.lovegu.springframework.beans.BeansException;
 import com.lovegu.springframework.beans.factory.ConfigurableListableBeanFactory;
 import com.lovegu.springframework.beans.factory.config.BeanDefinition;
+import com.lovegu.springframework.beans.BeansException;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author 老顾
- * @description 核心类实现，注册 bean 对象和获取 bean 对象
- * @date 2023/1/12
+ * 核心类实现，注册 bean 对象和获取 bean 对象
  */
 public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory implements BeanDefinitionRegistry, ConfigurableListableBeanFactory {
-
 
     private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
 
@@ -56,4 +53,5 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
     public void preInstantiateSingletons() throws BeansException {
         beanDefinitionMap.keySet().forEach(this::getBean);
     }
+
 }

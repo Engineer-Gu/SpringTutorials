@@ -1,8 +1,8 @@
 package com.lovegu.springframework.beans.factory.support;
 
 import com.lovegu.springframework.beans.BeansException;
-import com.lovegu.springframework.core.io.Resource;
-import com.lovegu.springframework.core.io.ResourceLoader;
+import com.lovegu.springframework.io.Resource;
+import com.lovegu.springframework.io.ResourceLoader;
 
 /**
  * @author 老顾

@@ -1,16 +1,15 @@
 package com.lovegu.springframework.beans.factory;
 
 /**
- * @author 老顾
- * @description 定义初始化 Bean 对象的接口
- * @date 2023/2/8
+ * 实现此接口的 Bean 对象，会在 BeanFactory 设置属性后作出相应的处理，如：执行自定义初始化，或者仅仅检查是否设置了所有强制属性。
  */
 public interface InitializingBean {
 
     /**
-     * 在 Bean 对象属性填充完成后调用
-     *
+     * Bean 处理了属性填充后调用
+     * 
      * @throws Exception
      */
     void afterPropertiesSet() throws Exception;
+
 }

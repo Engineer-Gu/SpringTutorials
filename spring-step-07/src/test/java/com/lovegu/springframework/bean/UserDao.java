@@ -3,22 +3,24 @@ package com.lovegu.springframework.bean;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author 老顾
- * @description
- * @date 2023/2/1
- */
 public class UserDao {
 
     private static Map<String, String> hashMap = new HashMap<>();
 
-    static {
+    public void initDataMethod(){
+        System.out.println("执行：init-method");
         hashMap.put("10001", "老顾");
         hashMap.put("10002", "老张");
         hashMap.put("10003", "老王");
     }
 
+    public void destroyDataMethod(){
+        System.out.println("执行：destroy-method");
+        hashMap.clear();
+    }
+
     public String queryUserName(String uId) {
         return hashMap.get(uId);
     }
+
 }
