@@ -6,4 +6,6 @@ package com.lovegu.springframework.beans.factory;
  * @date 2023/2/9
  */
 public interface BeanNameAware extends Aware{
+
+    void setBeanName(String name);
 }
