@@ -1,6 +1,6 @@
 package com.lovegu.springframework.aop;
 
-import net.sf.cglib.proxy.MethodInterceptor;
+import org.aopalliance.intercept.MethodInterceptor;
 
 /**
  * @author 老顾
