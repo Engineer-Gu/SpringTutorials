@@ -1,6 +1,8 @@
 package com.lovegu.springframework.bean;
 
-public class UserService {
+import java.util.Random;
+
+public class UserService implements IUserService{
 
     private String uId;
     private String company;
@@ -8,7 +10,22 @@ public class UserService {
     private IUserDao userDao;
 
     public String queryUserInfo() {
-        return userDao.queryUserName(uId) + "," + company + "," + location;
+        try {
+            Thread.sleep(new Random(1).nextInt(100));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "老顾，100001，深圳";
+    }
+
+    @Override
+    public String register(String userName) {
+        try {
+            Thread.sleep(new Random(1).nextInt(100));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "注册用户：" + userName + " success！";
     }
 
     public String getuId() {
