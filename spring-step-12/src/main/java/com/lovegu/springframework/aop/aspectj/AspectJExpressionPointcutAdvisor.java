@@ -2,7 +2,7 @@ package com.lovegu.springframework.aop.aspectj;
 
 import com.lovegu.springframework.aop.Pointcut;
 import com.lovegu.springframework.aop.PointcutAdvisor;
-import org.aspectj.weaver.Advice;
+import org.aopalliance.aop.Advice;
 
 /**
  * @author 老顾
@@ -29,11 +29,16 @@ public class AspectJExpressionPointcutAdvisor implements PointcutAdvisor {
         return advice;
     }
 
+
     @Override
     public Pointcut getPointcut() {
         if (null == pointcut) {
             pointcut = new AspectJExpressionPointcut(expression);
         }
         return pointcut;
+    }
+
+    public void setAdvice(Advice advice){
+        this.advice = advice;
     }
 }

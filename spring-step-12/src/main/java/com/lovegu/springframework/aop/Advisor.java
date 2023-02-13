@@ -1,6 +1,6 @@
 package com.lovegu.springframework.aop;
 
-import org.aspectj.weaver.Advice;
+import org.aopalliance.aop.Advice;
 
 /**
  * @author 老顾
