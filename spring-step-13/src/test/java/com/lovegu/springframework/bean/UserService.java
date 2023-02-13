@@ -1,13 +1,13 @@
 package com.lovegu.springframework.bean;
 
+import com.lovegu.springframework.stereotype.Component;
+
 import java.util.Random;
 
+@Component("userService")
 public class UserService implements IUserService{
 
-    private String uId;
-    private String company;
-    private String location;
-    private IUserDao userDao;
+    private String token;
 
     public String queryUserInfo() {
         try {
@@ -27,37 +27,16 @@ public class UserService implements IUserService{
         }
         return "注册用户：" + userName + " success！";
     }
-
-    public String getuId() {
-        return uId;
+    public String getToken() {
+        return token;
     }
 
-    public void setuId(String uId) {
-        this.uId = uId;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public String getCompany() {
-        return company;
+    @Override
+    public String toString() {
+        return "UserService#token = { " + token + " }";
     }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public IUserDao getUserDao() {
-        return userDao;
-    }
-
-    public void setUserDao(IUserDao userDao) {
-        this.userDao = userDao;
-    }
-
 }

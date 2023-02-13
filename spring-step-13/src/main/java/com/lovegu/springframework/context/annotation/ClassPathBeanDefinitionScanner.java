@@ -20,7 +20,7 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
         this.registry = registry;
     }
 
-    public void soScan(String... basePackages) {
+    public void doScan(String... basePackages) {
         for (String basePackage : basePackages) {
             Set<BeanDefinition> candidates = findCandidateComponents(basePackage);
             for (BeanDefinition beanDefinition : candidates) {
