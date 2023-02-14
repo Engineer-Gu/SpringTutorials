@@ -28,5 +28,4 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
     protected ConfigurableListableBeanFactory getBeanFactory() {
         return beanFactory;
     }
-
 }

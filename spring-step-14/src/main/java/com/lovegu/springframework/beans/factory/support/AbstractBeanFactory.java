@@ -16,11 +16,15 @@ import java.util.List;
  */
 public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport implements ConfigurableBeanFactory {
 
-    /** BeanPostProcessors to apply in createBean */
-    private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
-
-    /** ClassLoader to resolve bean class names with, if necessary */
+    /**
+     * ClassLoader to resolve bean class names with, if necessary
+     */
     private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
+
+    /**
+     * BeanPostProcessors to apply in createBean
+     */
+    private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
 
     /**
      * String resolvers to apply e.g. to annotation attribute values
@@ -59,12 +63,13 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
             return beanInstance;
         }
 
-        Object object = getCacheObjectForFactoryBean(beanName);
+        Object object = getCachedObjectForFactoryBean(beanName);
 
         if (object == null) {
             FactoryBean<?> factoryBean = (FactoryBean<?>) beanInstance;
-            object = getObjectFormFactoryBean(factoryBean, beanName);
+            object = getObjectFromFactoryBean(factoryBean, beanName);
         }
+
         return object;
     }
 
@@ -73,7 +78,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
     protected abstract Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args) throws BeansException;
 
     @Override
-    public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor){
+    public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
         this.beanPostProcessors.remove(beanPostProcessor);
         this.beanPostProcessors.add(beanPostProcessor);
     }
@@ -103,4 +108,5 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
     public ClassLoader getBeanClassLoader() {
         return this.beanClassLoader;
     }
+
 }

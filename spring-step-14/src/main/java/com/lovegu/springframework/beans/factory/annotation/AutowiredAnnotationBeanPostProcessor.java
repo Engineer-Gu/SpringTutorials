@@ -25,10 +25,9 @@ public class AutowiredAnnotationBeanPostProcessor implements InstantiationAwareB
         this.beanFactory = (ConfigurableListableBeanFactory) beanFactory;
     }
 
-
     @Override
     public PropertyValues postProcessPropertyValues(PropertyValues pvs, Object bean, String beanName) throws BeansException {
-        // 1.处理注解 @Value
+        // 1. 处理注解 @Value
         Class<?> clazz = bean.getClass();
         clazz = ClassUtils.isCglibProxyClass(clazz) ? clazz.getSuperclass() : clazz;
 
@@ -43,7 +42,7 @@ public class AutowiredAnnotationBeanPostProcessor implements InstantiationAwareB
             }
         }
 
-        // 2.处理注解 @Autowired
+        // 2. 处理注解 @Autowired
         for (Field field : declaredFields) {
             Autowired autowiredAnnotation = field.getAnnotation(Autowired.class);
             if (null != autowiredAnnotation) {
@@ -54,13 +53,19 @@ public class AutowiredAnnotationBeanPostProcessor implements InstantiationAwareB
                 if (null != qualifierAnnotation) {
                     dependentBeanName = qualifierAnnotation.value();
                     dependentBean = beanFactory.getBean(dependentBeanName, fieldType);
-                }else {
+                } else {
                     dependentBean = beanFactory.getBean(fieldType);
                 }
                 BeanUtil.setFieldValue(bean, field.getName(), dependentBean);
             }
         }
+
         return pvs;
+    }
+
+    @Override
+    public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
+        return null;
     }
 
     @Override
@@ -72,10 +77,4 @@ public class AutowiredAnnotationBeanPostProcessor implements InstantiationAwareB
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         return null;
     }
-
-    @Override
-    public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
-        return null;
-    }
-
 }

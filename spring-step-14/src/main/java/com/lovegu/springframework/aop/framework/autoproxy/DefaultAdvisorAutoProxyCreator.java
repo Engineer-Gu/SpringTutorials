@@ -4,6 +4,7 @@ import com.lovegu.springframework.aop.*;
 import com.lovegu.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor;
 import com.lovegu.springframework.aop.framework.ProxyFactory;
 import com.lovegu.springframework.beans.BeansException;
+import com.lovegu.springframework.beans.PropertyValues;
 import com.lovegu.springframework.beans.factory.BeanFactory;
 import com.lovegu.springframework.beans.factory.BeanFactoryAware;
 import com.lovegu.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
@@ -23,7 +24,13 @@ public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPos
     private DefaultListableBeanFactory beanFactory;
 
     @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = (DefaultListableBeanFactory) beanFactory;
+    }
+
+    @Override
     public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
+
         if (isInfrastructureClass(beanClass)) return null;
 
         Collection<AspectJExpressionPointcutAdvisor> advisors = beanFactory.getBeansOfType(AspectJExpressionPointcutAdvisor.class).values();
@@ -35,10 +42,9 @@ public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPos
             AdvisedSupport advisedSupport = new AdvisedSupport();
 
             TargetSource targetSource = null;
-
             try {
                 targetSource = new TargetSource(beanClass.getDeclaredConstructor().newInstance());
-            }catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             advisedSupport.setTargetSource(targetSource);
@@ -47,26 +53,29 @@ public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPos
             advisedSupport.setProxyTargetClass(false);
 
             return new ProxyFactory(advisedSupport).getProxy();
+
         }
+
         return null;
     }
 
     private boolean isInfrastructureClass(Class<?> beanClass) {
-        return Advice.class.isAssignableFrom(beanClass)
-                || Pointcut.class.isAssignableFrom(beanClass)
-                || Advisor.class.isAssignableFrom(beanClass);
-    }
-    @Override
-    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        return bean;
+        return Advice.class.isAssignableFrom(beanClass) || Pointcut.class.isAssignableFrom(beanClass) || Advisor.class.isAssignableFrom(beanClass);
     }
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         return bean;
     }
+
     @Override
-    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-        this.beanFactory = (DefaultListableBeanFactory) beanFactory;
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        return bean;
     }
+
+    @Override
+    public PropertyValues postProcessPropertyValues(PropertyValues pvs, Object bean, String beanName) throws BeansException {
+        return pvs;
+    }
+
 }

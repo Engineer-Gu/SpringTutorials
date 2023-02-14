@@ -1,6 +1,7 @@
 package com.lovegu.springframework.context.annotation;
 
 import cn.hutool.core.util.StrUtil;
+import com.lovegu.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import com.lovegu.springframework.beans.factory.config.BeanDefinition;
 import com.lovegu.springframework.beans.factory.support.BeanDefinitionRegistry;
 import com.lovegu.springframework.stereotype.Component;
@@ -24,7 +25,7 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
         for (String basePackage : basePackages) {
             Set<BeanDefinition> candidates = findCandidateComponents(basePackage);
             for (BeanDefinition beanDefinition : candidates) {
-                // 解析 Bean 的作用域 singleton，prototype
+                // 解析 Bean 的作用域 singleton、prototype
                 String beanScope = resolveBeanScope(beanDefinition);
                 if (StrUtil.isNotEmpty(beanScope)) {
                     beanDefinition.setScope(beanScope);
@@ -32,6 +33,9 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
                 registry.registerBeanDefinition(determineBeanName(beanDefinition), beanDefinition);
             }
         }
+
+        // 注册处理注解的 BeanPostProcessor（@Autowired、@Value）
+        registry.registerBeanDefinition("com.lovegu.springframework.context.annotation.internalAutowiredAnnotationProcessor", new BeanDefinition(AutowiredAnnotationBeanPostProcessor.class));
     }
 
     private String resolveBeanScope(BeanDefinition beanDefinition) {

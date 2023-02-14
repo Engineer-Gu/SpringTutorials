@@ -13,14 +13,17 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public abstract class FactoryBeanRegistrySupport extends DefaultSingletonBeanRegistry{
 
+    /**
+     * Cache of singleton objects created by FactoryBeans: FactoryBean name --> object
+     */
     private final Map<String, Object> factoryBeanObjectCache = new ConcurrentHashMap<String, Object>();
 
-    protected Object getCacheObjectForFactoryBean(String beanName) {
+    protected Object getCachedObjectForFactoryBean(String beanName) {
         Object object = this.factoryBeanObjectCache.get(beanName);
         return (object != NULL_OBJECT ? object : null);
     }
 
-    protected Object getObjectFormFactoryBean(FactoryBean factory, String beanName) {
+    protected Object getObjectFromFactoryBean(FactoryBean factory, String beanName) {
         if (factory.isSingleton()) {
             Object object = this.factoryBeanObjectCache.get(beanName);
             if (object == null) {

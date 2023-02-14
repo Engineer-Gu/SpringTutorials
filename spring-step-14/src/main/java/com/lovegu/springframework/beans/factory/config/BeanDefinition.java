@@ -17,7 +17,7 @@ public class BeanDefinition {
     private PropertyValues propertyValues;
 
     private String initMethodName;
-    
+
     private String destroyMethodName;
 
     private String scope = SCOPE_SINGLETON;

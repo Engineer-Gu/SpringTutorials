@@ -7,7 +7,6 @@ import com.lovegu.springframework.beans.BeansException;
  * XML 文件应用上下文
  */
 public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContext {
-
     private String[] configLocations;
 
     public ClassPathXmlApplicationContext() {
