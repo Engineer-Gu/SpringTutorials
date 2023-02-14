@@ -6,10 +6,20 @@
 	         http://www.springframework.org/schema/beans/spring-beans.xsd
 		 http://www.springframework.org/schema/context">
 
-    <bean class="com.lovegu.springframework.beans.factory.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:token.properties"/>
+    <bean id="userService" class="com.lovegu.springframework.bean.UserService">
+        <property name="token" value="RejDlI78hu223Opo983Ds"/>
     </bean>
 
-    <context:component-scan base-package="com.lovegu.springframework.bean"/>
+    <bean class="com.lovegu.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
 
+    <bean id="beforeAdvice" class="com.lovegu.springframework.bean.UserServiceBeforeAdvice"/>
+
+    <bean id="methodInterceptor" class="com.lovegu.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor">
+        <property name="advice" ref="beforeAdvice"/>
+    </bean>
+
+    <bean id="pointcutAdvisor" class="com.lovegu.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor">
+        <property name="expression" value="execution(* com.lovegu.springframework.bean.IUserService.*(..))"/>
+        <property name="advice" ref="methodInterceptor"/>
+    </bean>
 </beans>
