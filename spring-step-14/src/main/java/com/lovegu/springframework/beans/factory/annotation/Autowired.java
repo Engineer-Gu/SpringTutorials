@@ -1,4 +1,4 @@
-package com.lovegu.springframework.context.annotation;
+package com.lovegu.springframework.beans.factory.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
