@@ -15,29 +15,31 @@ import java.lang.reflect.Method;
  * 创建 bean 对象
  */
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory implements AutowireCapableBeanFactory {
-    private InstantiationStrategy instantiationStrategy = new CglibSubclassingInstantiationStrategy();
+    private InstantiationStrategy instantiationStrategy = new SimpleInstantiationStrategy();
 
     @Override
     protected Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args) throws BeansException {
-
+        // 判断是否返回代理 Bean 对象
         Object bean = resolveBeforeInstantiation(beanName, beanDefinition);
         if (null != bean) {
             return bean;
         }
+
         return doCreateBean(beanName, beanDefinition, args);
     }
 
-    private Object doCreateBean(String beanName, BeanDefinition beanDefinition, Object[] args) {
+    protected Object doCreateBean(String beanName, BeanDefinition beanDefinition, Object[] args) {
         Object bean = null;
         try {
             // 实例化 Bean
             bean = createBeanInstance(beanDefinition, beanName, args);
 
-            // 处理循环依赖，将实例化后的 Bean 对象提前放入缓存中暴露出来
+            // 处理循环依赖，将实例化后的Bean对象提前放入缓存中暴露出来
             if (beanDefinition.isSingleton()) {
                 Object finalBean = bean;
                 addSingletonFactory(beanName, () -> getEarlyBeanReference(beanName, beanDefinition, finalBean));
             }
+
             // 实例化后判断
             boolean continueWithPropertyPopulation = applyBeanPostProcessorsAfterInstantiation(beanName, bean);
             if (!continueWithPropertyPopulation) {
@@ -64,6 +66,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             registerSingleton(beanName, exposedObject);
         }
         return exposedObject;
+
     }
 
     protected Object getEarlyBeanReference(String beanName, BeanDefinition beanDefinition, Object bean) {
@@ -78,13 +81,12 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         return exposedObject;
     }
 
-
     /**
      * Bean 实例化后对于返回 false 的对象，不在执行后续设置 Bean 对象属性的操作
      *
-     * @param beanName 对象名称
-     * @param bean 对象
-     * @return true & false
+     * @param beanName
+     * @param bean
+     * @return
      */
     private boolean applyBeanPostProcessorsAfterInstantiation(String beanName, Object bean) {
         boolean continueWithPropertyPopulation = true;
@@ -103,9 +105,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     /**
      * 在设置 Bean 属性之前，允许 BeanPostProcessor 修改属性值
      *
-     * @param beanName 对象名
-     * @param bean 对象
-     * @param beanDefinition 注册对象信息
+     * @param beanName
+     * @param bean
+     * @param beanDefinition
      */
     protected void applyBeanPostProcessorsBeforeApplyingPropertyValues(String beanName, Object bean, BeanDefinition beanDefinition) {
         for (BeanPostProcessor beanPostProcessor : getBeanPostProcessors()) {
@@ -176,7 +178,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
                     BeanReference beanReference = (BeanReference) value;
                     value = getBean(beanReference.getBeanName());
                 }
-                // 属性填充
+
+                // 反射设置属性填充
                 BeanUtil.setFieldValue(bean, name, value);
             }
         } catch (Exception e) {
@@ -260,5 +263,4 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         }
         return result;
     }
-
 }
