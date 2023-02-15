@@ -1,7 +1,8 @@
 package com.lovegu.springframework.jdbc.datasource;
 
 
-import cn.bugstack.springframework.jdbc.CannotGetJdbcConnectionException;
+
+import com.lovegu.springframework.jdbc.CannotGetJdbcConnectionException;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

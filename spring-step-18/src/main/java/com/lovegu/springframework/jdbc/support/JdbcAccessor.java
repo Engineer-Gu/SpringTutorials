@@ -1,7 +1,8 @@
 package com.lovegu.springframework.jdbc.support;
 
 
-import cn.bugstack.springframework.beans.factory.InitializingBean;
+
+import com.lovegu.springframework.beans.factory.InitializingBean;
 
 import javax.sql.DataSource;
 

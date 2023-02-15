@@ -1,10 +1,8 @@
 package com.lovegu.springframework.jdbc.support;
 
-//import com.sun.org.slf4j.internal.Logger;
-//import com.sun.org.slf4j.internal.LoggerFactory;
 
-import cn.bugstack.springframework.util.NumberUtils;
 import cn.hutool.core.util.StrUtil;
+import com.lovegu.springframework.util.NumberUtils;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -13,8 +11,6 @@ import java.sql.*;
  * @author zhangdd on 2022/2/9
  */
 public class JdbcUtils {
-
-//    private static final Logger logger = LoggerFactory.getLogger(JdbcUtils.class);
 
     public static void closeStatement(Statement stmt) {
         if (null != stmt) {

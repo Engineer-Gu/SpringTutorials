@@ -27,6 +27,7 @@
         <module>spring-step-16</module>
         <module>spring-step-17</module>
         <module>spring-step-18</module>
+        <module>spring-step-19</module>
     </modules>
 
     <properties>
