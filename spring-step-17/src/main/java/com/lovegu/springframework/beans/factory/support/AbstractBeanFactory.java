@@ -45,19 +45,16 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
     }
 
     @Override
-    public ConversionService getConversionService() {
-        return conversionService;
-    }
-
-    @Override
-    public void setConversionService(ConversionService conversionService) {
-        this.conversionService = conversionService;
-    }
-
-    @Override
     public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
         return (T) getBean(name);
     }
+
+    @Override
+    public boolean containsBean(String name) {
+        return containsBeanDefinition(name);
+    }
+
+    protected abstract boolean containsBeanDefinition(String beanName);
 
     protected <T> T doGetBean(final String name, final Object[] args) {
         Object sharedInstance = getSingleton(name);
@@ -108,6 +105,16 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
             result = resolver.resolveStringValue(result);
         }
         return result;
+    }
+
+    @Override
+    public void setConversionService(ConversionService conversionService) {
+        this.conversionService = conversionService;
+    }
+
+    @Override
+    public ConversionService getConversionService() {
+        return conversionService;
     }
 
     /**

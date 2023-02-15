@@ -10,10 +10,10 @@ import com.lovegu.springframework.core.convert.converter.ConverterRegistry;
 public class DefaultConversionService extends GenericConversionService{
 
     public DefaultConversionService() {
-        addDefaultConverters(null);
+        addDefaultConverters(this);
     }
 
-    private static void addDefaultConverters(ConverterRegistry converterRegistry) {
+    public static void addDefaultConverters(ConverterRegistry converterRegistry) {
         // 添加各类类型转换工厂
         converterRegistry.addConverterFactory(new StringToNumberConverterFactory());
     }

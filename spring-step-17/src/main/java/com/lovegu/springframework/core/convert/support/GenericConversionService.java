@@ -36,15 +36,8 @@ public class GenericConversionService implements ConversionService, ConverterReg
     public void addConverter(Converter<?, ?> converter) {
         GenericConverter.ConvertiblePair typeInfo = getRequiredTypeInfo(converter);
         ConverterAdapter converterAdapter = new ConverterAdapter(typeInfo, converter);
-        for (GenericConverter.ConvertiblePair convertiblePair : converterAdapter.getConvertibleTypes()) {
-            converters.put(convertiblePair, converterAdapter);
-        }
-    }
-
-    @Override
-    public void addConverter(GenericConverter converter) {
-        for (GenericConverter.ConvertiblePair convertiblePair : converter.getConvertibleTypes()) {
-            converters.put(convertiblePair, converter);
+        for (GenericConverter.ConvertiblePair convertibleType : converterAdapter.getConvertibleTypes()) {
+            converters.put(convertibleType, converterAdapter);
         }
     }
 
@@ -52,9 +45,25 @@ public class GenericConversionService implements ConversionService, ConverterReg
     public void addConverterFactory(ConverterFactory<?, ?> converterFactory) {
         GenericConverter.ConvertiblePair typeInfo = getRequiredTypeInfo(converterFactory);
         ConverterFactoryAdapter converterFactoryAdapter = new ConverterFactoryAdapter(typeInfo, converterFactory);
-        for (GenericConverter.ConvertiblePair convertiblePair : converterFactoryAdapter.getConvertibleTypes()) {
-            converters.put(convertiblePair, converterFactoryAdapter);
+        for (GenericConverter.ConvertiblePair convertibleType : converterFactoryAdapter.getConvertibleTypes()) {
+            converters.put(convertibleType, converterFactoryAdapter);
         }
+    }
+
+    @Override
+    public void addConverter(GenericConverter converter) {
+        for (GenericConverter.ConvertiblePair convertibleType : converter.getConvertibleTypes()) {
+            converters.put(convertibleType, converter);
+        }
+    }
+
+    private GenericConverter.ConvertiblePair getRequiredTypeInfo(Object object) {
+        Type[] types = object.getClass().getGenericInterfaces();
+        ParameterizedType parameterized = (ParameterizedType) types[0];
+        Type[] actualTypeArguments = parameterized.getActualTypeArguments();
+        Class sourceType = (Class) actualTypeArguments[0];
+        Class targetType = (Class) actualTypeArguments[1];
+        return new GenericConverter.ConvertiblePair(sourceType, targetType);
     }
 
     protected GenericConverter getConverter(Class<?> sourceType, Class<?> targetType) {
@@ -71,6 +80,7 @@ public class GenericConversionService implements ConversionService, ConverterReg
         }
         return null;
     }
+
     private List<Class<?>> getClassHierarchy(Class<?> clazz) {
         List<Class<?>> hierarchy = new ArrayList<>();
         while (clazz != null) {
@@ -78,15 +88,6 @@ public class GenericConversionService implements ConversionService, ConverterReg
             clazz = clazz.getSuperclass();
         }
         return hierarchy;
-    }
-
-    private GenericConverter.ConvertiblePair getRequiredTypeInfo(Object object) {
-        Type[] types = object.getClass().getGenericInterfaces();
-        ParameterizedType parameterized = (ParameterizedType) types[0];
-        Type[] actualTypeArguments = parameterized.getActualTypeArguments();
-        Class sourceType = (Class) actualTypeArguments[0];
-        Class targetType = (Class) actualTypeArguments[1];
-        return new GenericConverter.ConvertiblePair(sourceType, targetType);
     }
 
     private final class ConverterAdapter implements GenericConverter {
@@ -132,4 +133,5 @@ public class GenericConversionService implements ConversionService, ConverterReg
             return converterFactory.getConverter(targetType).convert(source);
         }
     }
+
 }
