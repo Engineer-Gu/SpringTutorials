@@ -2,11 +2,13 @@ package com.lovegu.springframework.beans.factory.support;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.TypeUtil;
 import com.lovegu.springframework.beans.BeansException;
 import com.lovegu.springframework.beans.PropertyValue;
 import com.lovegu.springframework.beans.PropertyValues;
 import com.lovegu.springframework.beans.factory.*;
 import com.lovegu.springframework.beans.factory.config.*;
+import com.lovegu.springframework.core.convert.ConversionService;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -178,12 +180,23 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
                     BeanReference beanReference = (BeanReference) value;
                     value = getBean(beanReference.getBeanName());
                 }
+                // 类型转换
+                else {
+                    Class<?> sourceType = value.getClass();
+                    Class<?> targetType = (Class<?>) TypeUtil.getFieldType(bean.getClass(), name);
+                    ConversionService conversionService = getConversionService();
+                    if (conversionService != null) {
+                        if (conversionService.canConvert(sourceType, targetType)) {
+                            value = conversionService.convert(value, targetType);
+                        }
+                    }
+                }
 
                 // 反射设置属性填充
                 BeanUtil.setFieldValue(bean, name, value);
             }
         } catch (Exception e) {
-            throw new BeansException("Error setting property values：" + beanName);
+            throw new BeansException("Error setting property values：" + beanName + " message：" + e);
         }
     }
 
